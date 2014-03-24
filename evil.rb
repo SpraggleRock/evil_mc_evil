@@ -24,10 +24,23 @@ ActiveRecord::Schema.define do
     t.integer :evil_henchmen_id
   end
 
+  create_table :evil_scheme_realizations do |t|
+    t.integer :evil_henchmen_id
+    t.integer :evil_scheme_id
+  end
+
 end
 
 class EvilHenchmen < ActiveRecord::Base
   has_many :evil_schemes
+
+  has_many :evil_scheme_realizations
+  has_many :evil_schemes_realized, through: :evil_scheme_realizations, source: :evil_scheme
+end
+
+class EvilSchemeRealization < ActiveRecord::Base
+  belongs_to :evil_henchmen
+  belongs_to :evil_scheme
 end
 
 class EvilScheme < ActiveRecord::Base
@@ -35,7 +48,10 @@ class EvilScheme < ActiveRecord::Base
 end
 
 sauron = EvilHenchmen.create! name: "Sauron", title: "Dark Lord"
-sauron.evil_schemes << EvilScheme.create!(codename: "Palantir", description: "Bind them all")
+scheme = EvilScheme.create!(codename: "Palantir", description: "Bind them all")
+sauron.evil_schemes << scheme
 
+minion = EvilHenchmen.create! name: "Nazgûl", title: "Ring Wraith"
+minion.evil_schemes_realized << scheme
 
 binding.pry
