@@ -2,6 +2,7 @@
 # an in-memory database
 # s_arb[TAB]
 
+require "pry";
 require 'active_record'
 require 'logger'
 
@@ -30,5 +31,7 @@ class Post < ActiveRecord::Base
   belongs_to :user
 end
 
-user = User.create! name: 'Josh'
-user.posts = [Post.new(name: 'yo ho ho'), Post.new(name: 'and a bottle of rum')]
+user = User.create! name: "Josh"
+user.posts = [Post.new(name: "yo ho ho"), Post.new(name: "and a bottle of rum")]
+
+binding.pry
