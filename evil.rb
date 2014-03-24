@@ -16,6 +16,7 @@ ActiveRecord::Schema.define do
   create_table :evil_henchmen do |t|
     t.string :name
     t.string :title
+    t.integer :overlord_id
   end
 
   create_table :evil_schemes do |t|
@@ -36,6 +37,10 @@ class EvilHenchmen < ActiveRecord::Base
 
   has_many :evil_scheme_realizations
   has_many :evil_schemes_realized, through: :evil_scheme_realizations, source: :evil_scheme
+
+  has_many :minions, class_name: "EvilHenchmen", foreign_key: "overlord_id"
+
+  belongs_to :overlord, class_name: "EvilHenchmen"
 end
 
 class EvilSchemeRealization < ActiveRecord::Base
@@ -56,5 +61,7 @@ sauron.evil_schemes << scheme
 
 minion = EvilHenchmen.create! name: "Nazgûl", title: "Ring Wraith"
 minion.evil_schemes_realized << scheme
+
+sauron.minions << minion
 
 binding.pry
