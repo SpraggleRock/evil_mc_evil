@@ -31,10 +31,11 @@ class EvilHenchmen < ActiveRecord::Base
 end
 
 class EvilScheme < ActiveRecord::Base
-  belongs_to :evil_henchmen
+  belongs_to :creator, class_name: "EvilHenchmen", foreign_key: "evil_henchmen_id"
 end
 
 sauron = EvilHenchmen.create! name: "Sauron", title: "Dark Lord"
 sauron.evil_schemes << EvilScheme.create!(codename: "Palantir", description: "Bind them all")
+
 
 binding.pry
