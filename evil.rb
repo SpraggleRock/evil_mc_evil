@@ -18,12 +18,20 @@ ActiveRecord::Schema.define do
     t.string :title
   end
 
+  create_table :evil_schemes do |t|
+    t.string :codename
+    t.string :description
+  end
+
 end
 
 class EvilHenchmen < ActiveRecord::Base
+end
 
+class EvilScheme < ActiveRecord::Base
 end
 
 sauron = EvilHenchmen.create! name: "Sauron", title: "Dark Lord"
+evil_plan = EvilScheme.create! codename: "Palantir", description: "Bind them all"
 
 binding.pry
