@@ -31,6 +31,7 @@ class EvilHenchmen < ActiveRecord::Base
 end
 
 class EvilScheme < ActiveRecord::Base
+  belongs_to :evil_henchmen
 end
 
 sauron = EvilHenchmen.create! name: "Sauron", title: "Dark Lord"
