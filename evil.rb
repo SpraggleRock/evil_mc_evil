@@ -45,6 +45,9 @@ end
 
 class EvilScheme < ActiveRecord::Base
   belongs_to :creator, class_name: "EvilHenchmen", foreign_key: "evil_henchmen_id"
+
+  has_many :evil_scheme_realizations
+  has_many :evil_henchmen, through: :evil_scheme_realizations
 end
 
 sauron = EvilHenchmen.create! name: "Sauron", title: "Dark Lord"
